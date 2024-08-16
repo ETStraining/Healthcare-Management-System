@@ -1,3 +1,9 @@
+@import "assets/css/fonts/inter.css";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+}

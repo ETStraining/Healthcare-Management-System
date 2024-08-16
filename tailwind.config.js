@@ -11,7 +11,12 @@ export default {
         "mut-blue": "#396cf01a",
         "muted": "#8492a6",
         "dark": "#212529",
-      }
+      },
+      fontFamily: {
+        inter: ['Inter', 'sans-serif'],
+        interVariable: ['InterVariable', 'sans-serif'],
+        interDisplay: ['InterDisplay', 'sans-serif'],
+      },
     },
   },
   plugins: [],
