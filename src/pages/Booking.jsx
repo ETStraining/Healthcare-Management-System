@@ -20,7 +20,7 @@ const Booking = () => {
                 </Container>
             </section>
 
-            <section className="mt-[100px]">
+            <section className="my-[100px]">
                 <Container>
                     <div className="flex items-center justify-center">
                         <div className="w-full lg:w-2/3">
