@@ -1,11 +1,24 @@
+import {createBrowserRouter, RouterProvider} from "react-router-dom";
+import Home from "./pages/Home.jsx";
+import GuestLayout from "./layouts/GuestLayout.jsx";
+import NotFound from "./pages/NotFound.jsx";
 
-function App() {
+const router = createBrowserRouter([
+    {
+        path: "/",
+        element: <GuestLayout />,
+        errorElement: <NotFound />,
+        children: [
+            {
+                path: "",
+                element: <Home />
+            }
+        ]
+    }
+])
+
+export  default function App () {
     return (
-        <div>
-            <h1>Project initialized</h1>
-        </div>
+        <RouterProvider router={router} />
     )
 }
-
-
-export default App;
