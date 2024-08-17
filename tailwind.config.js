@@ -11,6 +11,7 @@ export default {
         "mut-blue": "#396cf01a",
         "muted": "#8492a6",
         "dark": "#212529",
+        "light": "#f8f9fa",
         "light-gray": "#ced4da"
       },
       fontFamily: {
