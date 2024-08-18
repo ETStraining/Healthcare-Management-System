@@ -1,65 +1,23 @@
 import Container from "../components/Container.jsx";
-import Input from "../components/ui/Input.jsx";
-import Select from "../components/ui/Select.jsx";
-import Textarea from "../components/ui/Textarea.jsx";
-import Button from "../components/ui/Button.jsx";
+import SectionTop from "../components/SectionTop.jsx";
+import BookingForm from "../components/forms/BookingForm.jsx";
 
 
 const Booking = () => {
     return(
         <>
-            <section className="py-[170px] relative w-full bg-light">
-                <Container>
-                    <div className="flex items-center justify-center mt-5">
-                        <div className="text-center">
-                            <h3 className="font-bold text-dark text-3xl mb-5">Book an appointment</h3>
-                            <p className="max-w-[600px] text-muted">Ensure the best care for your loved ones with our skilled doctors, whether you need urgent medical attention, emergency treatment, or just a routine consultation.</p>
-                        </div>
-                    </div>
-                </Container>
-            </section>
+            <SectionTop current="APPOINTMENT">
+                <SectionTop.Title>Book an Appointment</SectionTop.Title>
+                <SectionTop.Description>
+                    Ensure the best care for your loved ones with our skilled doctors, whether you need urgent medical attention, emergency treatment, or just a routine consultation.
+                </SectionTop.Description>
+            </SectionTop>
 
             <section className="my-[100px]">
                 <Container>
                     <div className="flex items-center justify-center">
                         <div className="w-full lg:w-2/3">
-                            <div className="w-full border border-light-gray rounded-[0.375rem] p-4">
-                                <form>
-                                    <div className="flex flex-col gap-3">
-                                        <Input
-                                            onChange={() => {}}
-                                            label={"Patient name"}
-                                            placeholder={"Patient name"}
-                                            required
-                                        />
-                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                                            <Select onChange={() => {}} label={"Departments"} required>
-                                                <Select.Option value={"1"}>Department 1</Select.Option>
-                                                <Select.Option value={"2"}>Department 2</Select.Option>
-                                                <Select.Option value={"3"}>Department 3</Select.Option>
-                                            </Select>
-                                            <Select onChange={() => {}} label={"Doctor"} required>
-                                                <Select.Option value={"1"}>Department 1</Select.Option>
-                                                <Select.Option value={"2"}>Department 2</Select.Option>
-                                                <Select.Option value={"3"}>Department 3</Select.Option>
-                                            </Select>
-                                        </div>
-                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                                            <Input onChange={() => {}} label={"You email"} placeholder={"email@example.com"} required />
-                                            <Input onChange={() => {}} label={"You Phone"} placeholder={"+250791154300"} required />
-                                        </div>
-                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                                            <Input onChange={() => {}} type={"date"} label={"Date"} placeholder={"date"} required />
-                                            <Input onChange={() => {}} type={"time"} label={"Time"} placeholder={"03:30AM"} required />
-                                        </div>
-                                        <Textarea onChange={() => {}} label={"Comments"} placeholder={"Problem description:"} />
-
-                                        <Button onClick={() => {}}>
-                                            Book an Appointment
-                                        </Button>
-                                    </div>
-                                </form>
-                            </div>
+                            <BookingForm />
                         </div>
                     </div>
                 </Container>
