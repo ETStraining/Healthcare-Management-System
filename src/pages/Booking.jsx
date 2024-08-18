@@ -13,8 +13,7 @@ const Booking = () => {
                     <div className="flex items-center justify-center mt-5">
                         <div className="text-center">
                             <h3 className="font-bold text-dark text-3xl mb-5">Book an appointment</h3>
-                            <p className="max-w-[600px] text-muted">Great doctor if you need your family member to get
-                                effective immediate assistance, emergency treatment or a simple consultation.</p>
+                            <p className="max-w-[600px] text-muted">Ensure the best care for your loved ones with our skilled doctors, whether you need urgent medical attention, emergency treatment, or just a routine consultation.</p>
                         </div>
                     </div>
                 </Container>
@@ -33,7 +32,7 @@ const Booking = () => {
                                             placeholder={"Patient name"}
                                             required
                                         />
-                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                                             <Select onChange={() => {}} label={"Departments"} required>
                                                 <Select.Option value={"1"}>Department 1</Select.Option>
                                                 <Select.Option value={"2"}>Department 2</Select.Option>
@@ -45,9 +44,13 @@ const Booking = () => {
                                                 <Select.Option value={"3"}>Department 3</Select.Option>
                                             </Select>
                                         </div>
-                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                                             <Input onChange={() => {}} label={"You email"} placeholder={"email@example.com"} required />
                                             <Input onChange={() => {}} label={"You Phone"} placeholder={"+250791154300"} required />
+                                        </div>
+                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                            <Input onChange={() => {}} type={"date"} label={"Date"} placeholder={"date"} required />
+                                            <Input onChange={() => {}} type={"time"} label={"Time"} placeholder={"03:30AM"} required />
                                         </div>
                                         <Textarea onChange={() => {}} label={"Comments"} placeholder={"Problem description:"} />
 
