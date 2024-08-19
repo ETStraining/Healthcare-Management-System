@@ -3,6 +3,7 @@ import Home from "./pages/Home.jsx";
 import GuestLayout from "./layouts/GuestLayout.jsx";
 import NotFound from "./pages/NotFound.jsx";
 import Booking from "./pages/Booking.jsx";
+import Contact from "./pages/Contact.jsx";
 
 const router = createBrowserRouter([
     {
@@ -17,6 +18,10 @@ const router = createBrowserRouter([
             {
                 path: "booking-appointment",
                 element: <Booking />
+            },
+            {
+                path: "contact",
+                element: <Contact />
             }
         ]
     }
