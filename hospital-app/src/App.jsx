@@ -1,0 +1,37 @@
+import {createBrowserRouter, RouterProvider} from "react-router-dom";
+import Login from "./pages/Login.jsx";
+import NotFound from "./pages/NotFound.jsx";
+import DashboardLayout from "./components/layout/DashboardLayout.jsx";
+import Dashboard from "./pages/dashboard/index.jsx";
+import Appointments from "./pages/dashboard/Appointments.jsx";
+
+const router = createBrowserRouter([
+    {
+        path: "/",
+        element: <Login />,
+        errorElement: <NotFound />,
+    },
+    {
+        path: "/dashboard",
+        element: <DashboardLayout />,
+        children: [
+            {
+                path: "",
+                element: <Dashboard />
+            },
+            {
+                path: "appointments",
+                element: <Appointments />
+            }
+        ]
+    }
+])
+
+
+const App = () => {
+    return(
+        <RouterProvider router={router} />
+    )
+}
+
+export default App;
