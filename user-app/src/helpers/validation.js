@@ -3,10 +3,7 @@ export const validatePatientName = (name) => {
   if (typeof name !== 'string') {
     return 'Patient name must be a string';
   }
-  if (name.trim().length < 8) {
-    return 'Patient name must be at least 8 characters long';
-  }
-  return '';
+ 
 };
 
 export const validateEmail = (email) => {
