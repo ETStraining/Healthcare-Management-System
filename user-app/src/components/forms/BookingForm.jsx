@@ -3,7 +3,8 @@ import Select from "../ui/Select.jsx";
 import Textarea from "../ui/Textarea.jsx";
 import Button from "../ui/Button.jsx";
 import { useState } from "react";
-import { validatePatientName } from "../../helpers/validation.js";
+import { validatePatientName as validatePatientName1 } from "../../helpers/validation.js";
+import { validatePatientName as validatePatientName2} from "../../helpers/second validation.js";
 
 
 const BookingForm = () => {
