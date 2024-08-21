@@ -4,6 +4,9 @@ import NotFound from "./pages/NotFound.jsx";
 import DashboardLayout from "./components/layout/DashboardLayout.jsx";
 import Dashboard from "./pages/dashboard/index.jsx";
 import Appointments from "./pages/dashboard/Appointments.jsx";
+import Doctors from "./pages/dashboard/Doctors.jsx";
+import Patients from "./pages/dashboard/Patients.jsx";
+import Departments from "./pages/dashboard/Departments.jsx";
 
 const router = createBrowserRouter([
     {
@@ -22,6 +25,18 @@ const router = createBrowserRouter([
             {
                 path: "appointments",
                 element: <Appointments />
+            },
+            {
+                path: "doctors",
+                element: <Doctors />
+            },
+            {
+                path: "patients",
+                element: <Patients />
+            },
+            {
+                path: "departments",
+                element: <Departments />
             }
         ]
     }
