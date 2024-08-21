@@ -1,7 +1,11 @@
 import {Link, useLocation} from "react-router-dom";
 import {RiPieChart2Fill as Home} from "react-icons/ri";
 import {LiaStethoscopeSolid as Steto} from "react-icons/lia";
-import {FaUserDoctor as Doctor, FaWheelchair as Wheel} from "react-icons/fa6";
+import {
+    FaUserDoctor as Doctor,
+    FaWheelchair as Wheel,
+    FaUsers as Users
+} from "react-icons/fa6";
 import {MdOutlinePayment as Payment} from "react-icons/md";
 import {IoPeopleOutline as Dep} from "react-icons/io5";
 import PropTypes from "prop-types";
@@ -21,6 +25,11 @@ const links = [
         path: "/dashboard/doctors",
         label : "Doctors",
         Icon: Doctor
+    },
+    {
+        path: "/dashboard/users",
+        label : "Users",
+        Icon: Users
     },
     {
         path: "/dashboard/patients",

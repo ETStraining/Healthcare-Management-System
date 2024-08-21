@@ -7,6 +7,7 @@ import Appointments from "./pages/dashboard/Appointments.jsx";
 import Doctors from "./pages/dashboard/Doctors.jsx";
 import Patients from "./pages/dashboard/Patients.jsx";
 import Departments from "./pages/dashboard/Departments.jsx";
+import Users from "./pages/dashboard/Users.jsx";
 
 const router = createBrowserRouter([
     {
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
             {
                 path: "doctors",
                 element: <Doctors />
+            },
+            {
+                path: "users",
+                element: <Users />
             },
             {
                 path: "patients",

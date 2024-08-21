@@ -4,10 +4,10 @@ import PropTypes from "prop-types";
 
 const SelectContext = createContext(undefined);
 
-const Select = ({children, label, className, onChange, required}) => {
+const Select = ({children, label, className, onChange, required, name}) => {
     const [activeOption, setActiveOption] = useState(null);
     const handleChange = (e) => {
-        onChange?.(e.target.value); // Call onChange if it's provided
+        onChange?.(e); // Call onChange if it's provided
     };
     return(
         <SelectContext.Provider value={{activeOption, setActiveOption}}>
@@ -17,7 +17,8 @@ const Select = ({children, label, className, onChange, required}) => {
                 <select
                     onChange={handleChange}
                     required={required}
-                    className={`mt-1 py-[0.375rem] px-3 w-full outline-none border border-light-gray rounded-[0.375rem] text-dark text-[0.9375rem] font-medium transition-all focus:border-dc-blue focus:ring-4 focus:ring-dc-blue/30 ${className}`}
+                    name={name}
+                    className={`mt-1 py-[0.375rem] px-3 w-full capitalize outline-none border border-light-gray rounded-[0.375rem] text-dark text-[0.9375rem] font-medium transition-all focus:border-dc-blue focus:ring-4 focus:ring-dc-blue/30 ${className}`}
                 >
                     {children}
                 </select>
@@ -53,6 +54,7 @@ Select.propTypes = {
     className: PropTypes.string,
     onChange: PropTypes.func.isRequired,
     label: PropTypes.string.isRequired,
+    name: PropTypes.string,
     required: PropTypes.bool
 }
 
