@@ -1,4 +1,5 @@
 import THead from "../../components/table/THead.jsx";
+import InnerHeader from "../../components/layout/InnerHeader.jsx";
 
 const headers = ['Name', 'Email', 'Date', 'Visit time', 'Doctor', 'Action']
 const appointments = [
@@ -42,8 +43,8 @@ const appointments = [
 
 const Appointments = () => {
     return(
-        <div>
-            <h1 className="text-dark/80 font-bold text-4xl mb-12 pb-4 border-b border-dark-gray/50">Appointments</h1>
+        <>
+            <InnerHeader title={"Appointments"} />
             <div className="relative overflow-x-auto">
                 <table>
                     <THead headers={headers} />
@@ -62,7 +63,7 @@ const Appointments = () => {
                     </tbody>
                 </table>
             </div>
-        </div>
+        </>
     )
 }
 
