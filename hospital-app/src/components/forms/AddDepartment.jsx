@@ -6,7 +6,7 @@ import { useState } from "react";
 import {useMutation} from "@tanstack/react-query";
 import {addDepartment} from "../../firebase/departments.js";
 
-const AddDept = () => {
+const AddDepartment = () => {
     const initialFormData = {
         name: "",
         description: "",
@@ -127,4 +127,4 @@ const AddDept = () => {
     );
 };
 
-export default AddDept;
+export default AddDepartment;
