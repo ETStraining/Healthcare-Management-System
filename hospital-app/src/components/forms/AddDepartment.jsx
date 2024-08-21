@@ -3,6 +3,8 @@ import Textarea from "../ui/Textarea.jsx";
 import TagsInput from "../ui/TagsInput.jsx";
 import Button from "../ui/Button.jsx";
 import { useState } from "react";
+import {useMutation} from "@tanstack/react-query";
+import {addDepartment} from "../../firebase/departments.js";
 
 const AddDept = () => {
     const initialFormData = {
@@ -16,6 +18,17 @@ const AddDept = () => {
     };
 
     const [formData, setFormData] = useState(initialFormData);
+
+    const {
+        mutate,
+        isError,
+        isPending,
+        isSuccess,
+        error
+    } = useMutation({
+        mutationFn: addDepartment,
+        mutationKey: "addDepartment",
+    })
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -34,7 +47,15 @@ const AddDept = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(formData);
+        mutate(formData, {
+            onSuccess: () => {
+                console.log("Department added inside handleSubmit");
+                setFormData(initialFormData);
+            },
+            onError: (error) => {
+                console.error("Error inside handleSubmit: ", error);
+            },
+        });
         setFormData(initialFormData)
     };
 
@@ -96,7 +117,11 @@ const AddDept = () => {
                     label="Comment"
                     placeholder="More description here:"
                 />
-                <Button onClick={handleSubmit}>Save Department</Button>
+                <Button onClick={handleSubmit}>
+                    {
+                        isPending ? "Saving Department..." : "Save Department"
+                    }
+                </Button>
             </div>
         </form>
     );
