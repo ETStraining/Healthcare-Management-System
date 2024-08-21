@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 
-const Input = ({ label, type = "text", placeholder, value, onChange, className, required }) => {
+const Input = ({ label, type = "text", placeholder, value, onChange, className, required, ...rest }) => {
     return (
         <label>
             <span className="text-dark font-medium">{label}</span>
@@ -12,6 +12,7 @@ const Input = ({ label, type = "text", placeholder, value, onChange, className, 
                 onChange={onChange}
                 required={required}
                 placeholder={placeholder}
+                {...rest}
                 className={`${className} mt-1 py-[0.375rem] px-3 w-full outline-none border border-light-gray rounded-[0.375rem] text-dark text-[0.9375rem] transition-all focus:border-dc-blue focus:ring-4 focus:ring-dc-blue/30`}
             />
         </label>
