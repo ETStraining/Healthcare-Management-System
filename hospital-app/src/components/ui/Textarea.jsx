@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 
-const Textarea = ({label, placeholder, value, onChange, className, required }) => {
+const Textarea = ({label, placeholder, value, onChange, className, required, ...rest }) => {
     return (
         <label>
             <span className="text-dark font-medium">{label}</span>
@@ -11,6 +11,7 @@ const Textarea = ({label, placeholder, value, onChange, className, required }) =
                 placeholder={placeholder}
                 required={required}
                 rows={4}
+                {...rest}
                 className={`${className} mt-1 py-[0.375rem] px-3 w-full outline-none border border-light-gray rounded-[0.375rem] text-dark text-[0.9375rem] transition-all focus:border-dc-blue focus:ring-4 focus:ring-dc-blue/30 resize-vertical`}
             />
         </label>
