@@ -2,9 +2,7 @@ import Input from "../ui/Input.jsx";
 import Select from "../ui/Select.jsx";
 import Textarea from "../ui/Textarea.jsx";
 import Button from "../ui/Button.jsx";
-import { useState } from "react";
-import { validatePatientName as validatePatientName1 } from "../../helpers/validation.js";
-import { validatePatientName as validatePatientName2} from "../../helpers/second validation.js";
+import {useState} from "react";
 
 
 const BookingForm = () => {
@@ -21,18 +19,19 @@ const BookingForm = () => {
     }
 
     const [formData, setFormData] = useState(initialFormData);
-    
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData((prevData) => ({
+            ...prevData,
+            [name]: value
+        }));
+    };
+
 
     const handleSubmit = (e) => {
-     e.preventDefault();
-     const isValid1 = validatePatientName1(name);
-     const isValid2 = validatePatientName2(name);
-     if (isValid1 && isValid2) {
-        alert("Appointment booked successfully!");
-        
-    } else {
-        alert("Validation failed. Please check the form fields.");
-    }
+        e.preventDefault();
+        console.log(formData)
     }
 
     return (
@@ -40,7 +39,8 @@ const BookingForm = () => {
             <form onSubmit={handleSubmit}>
                 <div className="flex flex-col gap-3">
                     <Input
-                        onChange={() => {}}
+                        name="patientName"
+                        onChange={handleChange}
                         value={formData.patientName}
                         label={"Patient name"}
                         placeholder={"Patient name"}
@@ -48,53 +48,73 @@ const BookingForm = () => {
                     />
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                         <Select
-                            onChange={() => {}}
-                            label={"Departments"} required>
+                            name="department"
+                            onChange={handleChange}
+                            label={"Departments"}
+                            required
+                        >
                             <Select.Option value={"1"}>Department 1</Select.Option>
                             <Select.Option value={"2"}>Department 2</Select.Option>
                             <Select.Option value={"3"}>Department 3</Select.Option>
                         </Select>
                         <Select
-                            onChange={() => {}}
-                            label={"Doctor"} required>
-                            <Select.Option value={"1"}>Department 1</Select.Option>
-                            <Select.Option value={"2"}>Department 2</Select.Option>
-                            <Select.Option value={"3"}>Department 3</Select.Option>
+                            name="doctor"
+                            onChange={handleChange}
+                            label={"Doctor"}
+                            required
+                        >
+                            <Select.Option value={"1"}>Doctor 1</Select.Option>
+                            <Select.Option value={"2"}>Doctor 2</Select.Option>
+                            <Select.Option value={"3"}>Doctor 3</Select.Option>
                         </Select>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                         <Input
-                            onChange={() => {}}
+                            name="patientEmail"
+                            onChange={handleChange}
                             value={formData.patientEmail}
-                            label={"You email"}
-                            placeholder={"email@example.com"} required/>
+                            label={"Your email"}
+                            placeholder={"email@example.com"}
+                            required
+                        />
                         <Input
-                            onChange={() => {}}
+                            name="patientPhone"
+                            onChange={handleChange}
                             value={formData.patientPhone}
-                            label={"You Phone"}
-                            placeholder={"+250791154300"} required/>
+                            label={"Your Phone"}
+                            placeholder={"+250791154300"}
+                            required
+                        />
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                         <Input
-                            onChange={() => {}}
+                            name="date"
+                            onChange={handleChange}
                             type={"date"}
                             value={formData.date}
                             label={"Date"}
-                            placeholder={"date"} required/>
+                            placeholder={"date"}
+                            required
+                        />
                         <Input
-                            onChange={() => {}}
+                            name="time"
+                            onChange={handleChange}
                             type={"time"}
                             value={formData.time}
                             label={"Time"}
-                            placeholder={"03:30AM"} required/>
+                            placeholder={"03:30AM"}
+                            required
+                        />
                     </div>
                     <Textarea
-                        onChange={() => {}}
+                        name="comment"
+                        onChange={handleChange}
                         value={formData.comment}
                         label={"Comments"}
-                        placeholder={"Problem description:"}/>
+                        placeholder={"Problem description:"}
+                    />
 
-                    <Button onClick={() => {}}>
+                    <Button type="submit">
                         Book an Appointment
                     </Button>
                 </div>
