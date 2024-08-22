@@ -50,12 +50,12 @@ const Users = () => {
         <>
             {dialogOpen &&
                 <Dialog handleClose={() => setDialogOpen(false)}>
-                    <Dialog.Title>Add User</Dialog.Title>
+                    <Dialog.Title>Add Staff</Dialog.Title>
                     <AddUser roles={data.roles} departments={data.departments} />
                 </Dialog>
             }
-            <InnerHeader title={"Users"} className="flex items-center justify-between">
-                <Button onClick={() => setDialogOpen(true)}>Add a User</Button>
+            <InnerHeader title={"Staff"} className="flex items-center justify-between">
+                <Button onClick={() => setDialogOpen(true)}>Add a Staff</Button>
             </InnerHeader>
 
             <div className="relative overflow-x-auto">
@@ -76,7 +76,7 @@ const Users = () => {
                                     className="capitalize"
                                     key={idx}>
                                     <td className="font-medium">{`${user.firstName} ${user.lastName}`}</td>
-                                    <td>{user.email}</td>
+                                    <td className="lowercase">{user.email}</td>
                                     <td>{data.departmentsMap[user.department]}</td>
                                     <td>{data.rolesMap[user.role]}</td>
                                 </tr>
