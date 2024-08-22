@@ -16,7 +16,7 @@ const Users = () => {
     const {
         data,
         isLoading,
-        isSuccess
+        isSuccess,
     } = useQuery({
         queryKey: ["getRolesAndCategories"],
         queryFn: async () => {
@@ -65,26 +65,21 @@ const Users = () => {
                         Loading ...
                     </div>
                 }
-                {
-                    data&&
+                {isSuccess && data && (
                     <table>
                         <THead headers={headers} />
                         <tbody>
-                        {
-                            data.users.map((user, idx) => (
-                                <tr
-                                    className="capitalize"
-                                    key={idx}>
-                                    <td className="font-medium">{`${user.firstName} ${user.lastName}`}</td>
-                                    <td className="lowercase">{user.email}</td>
-                                    <td>{data.departmentsMap[user.department]}</td>
-                                    <td>{data.rolesMap[user.role]}</td>
-                                </tr>
-                            ))
-                        }
+                        {data.users.map((user, idx) => (
+                            <tr className="capitalize" key={idx}>
+                                <td className="font-medium">{`${user.firstName} ${user.lastName}`}</td>
+                                <td className="lowercase">{user.email}</td>
+                                <td>{data.departmentsMap[user.department]}</td>
+                                <td>{data.rolesMap[user.role]}</td>
+                            </tr>
+                        ))}
                         </tbody>
                     </table>
-                }
+                )}
             </div>
         </>
     )
