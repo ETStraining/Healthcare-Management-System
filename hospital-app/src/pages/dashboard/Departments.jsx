@@ -13,7 +13,8 @@ const Departments = () => {
 
     const {
         isLoading,
-        data
+        data,
+        refetch
     } = useQuery({
         queryFn: getAllDepartments,
         queryKey: ["allDepartments"]
@@ -25,7 +26,7 @@ const Departments = () => {
             {dialogOpen &&
                 <Dialog handleClose={() => setDialogOpen(false)}>
                     <Dialog.Title>Add Department</Dialog.Title>
-                    <AddDepartment />
+                    <AddDepartment refetch={refetch} />
                 </Dialog>
             }
             <InnerHeader title={"Departments"} className="flex items-center justify-between">
@@ -46,7 +47,7 @@ const Departments = () => {
                         {
                             data.map((row, idx) => (
                                 <tr key={idx}>
-                                    <td>{row.name}</td>
+                                    <td className="font-medium">{row.name}</td>
                                     <td>{row.email}</td>
                                     <td>{row.location}</td>
                                     <td>

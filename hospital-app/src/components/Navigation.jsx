@@ -27,8 +27,8 @@ const links = [
         Icon: Doctor
     },
     {
-        path: "/dashboard/users",
-        label : "Users",
+        path: "/dashboard/staff",
+        label : "Staff",
         Icon: Users
     },
     {

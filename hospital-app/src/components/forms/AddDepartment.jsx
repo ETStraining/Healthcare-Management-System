@@ -5,8 +5,9 @@ import Button from "../ui/Button.jsx";
 import { useState } from "react";
 import {useMutation} from "@tanstack/react-query";
 import {addDepartment} from "../../firebase/departments.js";
+import PropTypes from "prop-types";
 
-const AddDepartment = () => {
+const AddDepartment = ({refetch}) => {
     const initialFormData = {
         name: "",
         description: "",
@@ -51,6 +52,7 @@ const AddDepartment = () => {
             onSuccess: () => {
                 console.log("Department added inside handleSubmit");
                 setFormData(initialFormData);
+                refetch();
             },
             onError: (error) => {
                 console.error("Error inside handleSubmit: ", error);
@@ -126,5 +128,9 @@ const AddDepartment = () => {
         </form>
     );
 };
+
+AddDepartment.propTypes = {
+    refetch: PropTypes.func
+}
 
 export default AddDepartment;
