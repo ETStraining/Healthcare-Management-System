@@ -5,30 +5,8 @@ import logo from "../../assets/img/capstone.png"
 import Container from "../Container.jsx";
 import {Link, NavLink, useLocation} from "react-router-dom";
 import MobileNavbar from "./MobileNavbar.jsx";
+import {links} from "../../helpers/constants.js";
 
-
-const links = [
-    {
-        path: "/",
-        label: "home"
-    },
-    {
-        path: "/about",
-        label: "about us"
-    },
-    {
-        path: "/doctors",
-        label: "doctors"
-    },
-    {
-        path: "/departments",
-        label: "departments"
-    },
-    {
-        path: "/contact",
-        label: "contact"
-    }
-]
 
 
 const Navbar = () => {
