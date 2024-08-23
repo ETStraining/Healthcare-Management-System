@@ -4,6 +4,7 @@ import GuestLayout from "./layouts/GuestLayout.jsx";
 import NotFound from "./pages/NotFound.jsx";
 import Booking from "./pages/Booking.jsx";
 import Contact from "./pages/Contact.jsx";
+import Departments from "./pages/Departments.jsx";
 
 const router = createBrowserRouter([
     {
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
             {
                 path: "contact",
                 element: <Contact />
+            },
+            {
+                path: "departments",
+                element: <Departments />
             }
         ]
     }
