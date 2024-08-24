@@ -5,6 +5,7 @@ import NotFound from "./pages/NotFound.jsx";
 import Booking from "./pages/Booking.jsx";
 import Contact from "./pages/Contact.jsx";
 import Departments from "./pages/Departments.jsx";
+import Doctors from "./pages/Doctors.jsx";
 
 const router = createBrowserRouter([
     {
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
             {
                 path: "departments",
                 element: <Departments />
+            },
+            {
+                path: "doctors",
+                element: <Doctors />
             }
         ]
     }
