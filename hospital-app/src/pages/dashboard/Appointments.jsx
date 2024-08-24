@@ -1,7 +1,7 @@
 import THead from "../../components/table/THead.jsx";
 import InnerHeader from "../../components/layout/InnerHeader.jsx";
 
-const headers = ['Name', 'Email', 'Date', 'Visit time', 'Doctor', 'Action']
+const headers = ['Name', 'Email', 'Date', 'Visit time', 'Doctor']
 const appointments = [
     {
         Name: 'John Doe',
