@@ -34,13 +34,13 @@ const DoctorCard = () => {
                     <div>
                         <div className="flex items-center gap-2 text-muted">
                             <span className="text-dc-blue">
-                                <Time />
+                                <Location />
                             </span>
-                            <p>63, PG Shustoke, UK</p>
+                            <p>63, PG Shustoke, KG</p>
                         </div>
                         <div className="flex items-center gap-2 text-muted">
                             <span className="text-dc-blue">
-                                <Location />
+                                <Time />
                             </span>
                             <p>Mon: 2:00PM - 6:00PM</p>
                         </div>
