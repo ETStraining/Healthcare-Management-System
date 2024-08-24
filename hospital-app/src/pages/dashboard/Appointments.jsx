@@ -1,54 +1,71 @@
+import THead from "../../components/table/THead.jsx";
+import InnerHeader from "../../components/layout/InnerHeader.jsx";
+
+const headers = ['Name', 'Email', 'Date', 'Visit time', 'Doctor', 'Action']
+const appointments = [
+    {
+        Name: 'John Doe',
+        Email: 'johndoe@example.com',
+        Date: '2024-08-19',
+        VisitTime: '10:00 AM',
+        Doctor: 'Dr. Smith',
+    },
+    {
+        Name: 'Jane Smith',
+        Email: 'janesmith@example.com',
+        Date: '2024-08-20',
+        VisitTime: '11:30 AM',
+        Doctor: 'Dr. Johnson',
+    },
+    {
+        Name: 'Samuel Green',
+        Email: 'samuelgreen@example.com',
+        Date: '2024-08-21',
+        VisitTime: '02:00 PM',
+        Doctor: 'Dr. Brown',
+    },
+    {
+        Name: 'Emily White',
+        Email: 'emilywhite@example.com',
+        Date: '2024-08-22',
+        VisitTime: '09:00 AM',
+        Doctor: 'Dr. Wilson',
+    },
+    {
+        Name: 'Michael Blue',
+        Email: 'michaelblue@example.com',
+        Date: '2024-08-23',
+        VisitTime: '01:00 PM',
+        Doctor: 'Dr. Taylor',
+    },
+];
+
 
 const Appointments = () => {
     return(
-        <div>
-            <h1 className="text-dark/80 font-bold text-4xl mb-12 pb-4 border-b border-dark-gray/50">Appointments</h1>
+        <>
+            <InnerHeader title={"Appointments"} />
             <div className="relative overflow-x-auto">
-                <table className="w-full table-auto text-sm text-left text-dark">
-                    <thead className="uppercase">
-                    <tr className="border-b">
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Date</th>
-                        <th>Visit time</th>
-                        <th>Doctor</th>
-                        <th>Action</th>
-                    </tr>
-                    </thead>
+                <table>
+                    <THead headers={headers} />
                     <tbody>
-                        <BTr />
-                        <BTr />
-                        <BTr />
-                        <BTr />
-                        <BTr />
-                        <BTr />
+                    {
+                        appointments.map((row, idx) => (
+                            <tr className="border-b" key={idx}>
+                                <td className="font-medium">{row.Name}</td>
+                                <td>{row.Email}</td>
+                                <td>{row.Date}</td>
+                                <td>{row.VisitTime}</td>
+                                <td>{row.Doctor}</td>
+                            </tr>
+                        ))
+                    }
                     </tbody>
                 </table>
             </div>
-        </div>
+        </>
     )
 }
 
-const BTr = () => {
-    return(
-        <tr className="border-b">
-            <th className="px-6 py-4 font-medium">
-                Ingabire Marie Sandrine
-            </th>
-            <td className="px-6 py-4">
-                email.sd1@gamil.com
-            </td>
-            <td className="px-6 py-4">
-                23rdMay2023
-            </td>
-            <td className="px-6 py-4">
-                03:20PM
-            </td>
-            <td className="px-6 py-4">
-                ETS Sando
-            </td>
-        </tr>
-    )
-}
 
 export default Appointments;

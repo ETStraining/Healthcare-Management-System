@@ -12,7 +12,9 @@ export default {
         "muted": "#8492a6",
         "dark": "#212529",
         "light": "#f8f9fa",
-        "light-gray": "#ced4da"
+        "light-gray": "#ced4da",
+        "dark-blue": "#202942",
+        "gray": "#adb5bd"
       },
       fontFamily: {
         inter: ['Inter', 'sans-serif'],

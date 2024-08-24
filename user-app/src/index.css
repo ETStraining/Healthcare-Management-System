@@ -11,3 +11,11 @@ body {
 .form-wrapper {
     @apply w-full border border-light-gray rounded-[0.375rem] p-4;
 }
+
+.footer-head {
+    @apply font-semibold text-white text-lg
+}
+
+.footer-link {
+    @apply capitalize flex items-center hover:text-white transition-all  gap-1 text-gray
+}

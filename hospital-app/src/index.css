@@ -11,3 +11,16 @@ body {
 .form-wrapper {
     @apply w-full border border-light-gray rounded-[0.375rem] p-4;
 }
+
+table {
+    @apply w-full table-auto text-sm text-left text-dark;
+}
+
+tr {
+    @apply border-b
+}
+
+tr td,
+tr th {
+    @apply px-6 py-4;
+}

@@ -3,8 +3,11 @@ import {Link, Outlet} from "react-router-dom";
 import Navigation from "../Navigation.jsx";
 import { FaBell as Bell } from "react-icons/fa";
 import avatar from "../../assets/img/avatar.png";
+import {useState} from "react";
 
 const DashboardLayout = () => {
+    const [profileOpen, setProfileOpen] = useState(false)
+
     return(
         <>
             <div className="navigation w-6 xl:w-[256px] h-[100vh] p-5 fixed top-0 left-0 border-r border-light-gray">
@@ -25,12 +28,18 @@ const DashboardLayout = () => {
                                 32
                             </span>
                         </div>
-                        <Link to={"/profile"} className="h-8 w-8 lg:h-10 lg:w-10 border-2 border-light-gray rounded-full">
+                        <button onClick={() => {setProfileOpen(!profileOpen)}} className="h-8 w-8 lg:h-10 lg:w-10 border-2 border-light-gray rounded-full">
                             <img src={`${avatar}`} alt=""/>
-                        </Link>
+                        </button>
+                        {profileOpen &&
+                            <div className="absolute font-medium text-dark flex flex-col top-16 right-6 bg-white shadow-lg p-4 rounded-md">
+                                <Link to={"/profile"} className="px-4 py-2">Profile</Link>
+                                <Link to={"/logout"} className="px-4 py-2">Logout</Link>
+                            </div>
+                        }
                     </div>
                 </div>
-                <main className="px-4 mt-6">
+                <main onClick={() => setProfileOpen(false)} className="px-4 mt-6 min-h-screen">
                     <Outlet/>
                 </main>
             </div>
