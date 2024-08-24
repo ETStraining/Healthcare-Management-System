@@ -1,6 +1,6 @@
 import {DB} from "./config.js";
 import {getDocDoc, collection, deleteDoc} from "firebase/firestore";
- const dbRef = collection(DB, "departments" );
+ const dbRef = collection(DB, "appointments" );
 
  export const getAllDepartments = async () => {
     try {
@@ -10,8 +10,8 @@ import {getDocDoc, collection, deleteDoc} from "firebase/firestore";
             ...doc.data(),
         }))
     }catch (error) {
-        console.error("Error fetching departments: ", error);
-        throw new Error("Failed to fetch departments");
+        console.error("Error fetching appointments: ", error);
+        throw new Error("Failed to fetch appointments");
     }
 }
 
