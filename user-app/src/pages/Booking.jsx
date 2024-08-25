@@ -1,7 +1,7 @@
 import Container from "../components/Container.jsx";
 import SectionTop from "../components/SectionTop.jsx";
 import BookingForm from "../components/forms/BookingForm.jsx";
-
+import {motion} from "framer-motion";
 
 const Booking = () => {
     return(
@@ -15,11 +15,16 @@ const Booking = () => {
 
             <section className="my-[100px]">
                 <Container>
-                    <div className="flex items-center justify-center">
+                    <motion.div
+                        className="flex items-center justify-center"
+                        initial={{opacity: 0, y: 50}}
+                        animate={{opacity:1, y:0}}
+                        transition={{delay: 1, duration: 1}}
+                    >
                         <div className="w-full lg:w-2/3">
                             <BookingForm />
                         </div>
-                    </div>
+                    </motion.div>
                 </Container>
             </section>
         </>
