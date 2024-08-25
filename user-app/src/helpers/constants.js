@@ -17,8 +17,8 @@ export const links = [
         label: "home"
     },
     {
-        path: "/about",
-        label: "about us"
+        path: "/booking-appointment",
+        label: "booking"
     },
     {
         path: "/doctors",
