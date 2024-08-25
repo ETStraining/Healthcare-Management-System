@@ -2,10 +2,15 @@ import doc from "../assets/img/doc.jpg";
 import { AiOutlineHeart as Heart } from "react-icons/ai";
 import { MdAccessTime as Time } from "react-icons/md";
 import { IoLocationOutline as Location } from "react-icons/io5";
+import {itemVariants} from "../helpers/animations.js";
+import {motion} from "framer-motion";
 
 const DoctorCard = () => {
     return (
-        <div className="p-2">
+        <motion.div
+            className="p-2"
+            variants={itemVariants}
+        >
             <div className="rounded-md border border-gray/20 shadow-md">
                 <div className="relative overflow-hidden">
                     <img
@@ -47,7 +52,7 @@ const DoctorCard = () => {
                     </div>
                 </div>
             </div>
-        </div>
+        </motion.div>
     );
 };
 

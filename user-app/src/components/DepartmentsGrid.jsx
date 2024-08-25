@@ -1,23 +1,8 @@
 import {departments} from "../helpers/constants.js";
 import {Link} from "react-router-dom";
 import {motion} from "framer-motion";
+import {containerVariants, itemVariants} from "../helpers/animations.js";
 
-const containerVariants = {
-    hidden: { opacity: 0 },
-    show: {
-        opacity: 1,
-        transition: {
-            delay: 1,
-            staggerChildren: 0.3,
-        },
-    },
-};
-
-const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    show: {
-        opacity: 1, y: 0 },
-};
 
 const DepartmentsGrid = () => {
     return (

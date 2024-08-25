@@ -1,7 +1,8 @@
 import SectionTop from "../components/SectionTop.jsx";
 import Container from "../components/Container.jsx";
 import DoctorCard from "../components/DoctorCard.jsx";
-
+import {containerVariants} from "../helpers/animations.js";
+import {motion} from "framer-motion";
 
 const Doctors = () => {
     return(
@@ -16,7 +17,12 @@ const Doctors = () => {
             </SectionTop>
             <section className="my-[100px]">
                 <Container>
-                    <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6">
+                    <motion.div
+                        className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6"
+                        variants={containerVariants}
+                        initial="hidden"
+                        animate="show"
+                    >
                         <DoctorCard />
                         <DoctorCard />
                         <DoctorCard />
@@ -25,7 +31,7 @@ const Doctors = () => {
                         <DoctorCard />
                         <DoctorCard />
                         <DoctorCard />
-                    </div>
+                    </motion.div>
                 </Container>
             </section>
         </>
