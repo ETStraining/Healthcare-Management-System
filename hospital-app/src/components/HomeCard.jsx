@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 
 const HomeCard = ({Icon, title, count}) => {
     return(
-        <div className="bg-dc-blue/15 min-h-[88px] py-5 flex items-center gap-7 justify-center px-5 rounded-lg">
+        <div className="bg-dc-blue/15 min-h-[88px] py-5 px-6 flex items-center enter gap-6  rounded-lg shadow-xl">
             <span className="text-dc-blue text-6xl">
                 <Icon />
             </span>
