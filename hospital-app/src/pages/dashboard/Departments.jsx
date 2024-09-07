@@ -9,15 +9,21 @@ import {useDepartments} from "../../hooks/useDepartments.js";
 const Departments = () => {
     const headers = ["Name", "Email", "Location", "Services"]
     const [dialogOpen, setDialogOpen] = useState(false)
+    const [oneDepDialog, setOneDepDialog] = useState(false);
 
     const {data, isLoading} = useDepartments();
-    
+
     return(
         <>
             {dialogOpen &&
                 <Dialog handleClose={() => setDialogOpen(false)}>
                     <Dialog.Title>Add Department</Dialog.Title>
-                    <AddDepartment refetch={() => {}} />
+                    <AddDepartment/>
+                </Dialog>
+            }
+            {oneDepDialog &&
+                <Dialog handleClose={() => setOneDepDialog(false)}>
+
                 </Dialog>
             }
             <InnerHeader title={"Departments"} className="flex items-center justify-between">
@@ -38,7 +44,10 @@ const Departments = () => {
                         {
                             data.departments.map((row, idx) => (
                                 <tr key={idx}>
-                                    <td className="font-medium">{row.name}</td>
+                                    <td
+                                        className="font-medium hover:underline cursor-pointer"
+                                        onClick={() => setOneDepDialog(true)}
+                                    >{row.name}</td>
                                     <td>{row.email}</td>
                                     <td>{row.location}</td>
                                     <td>
