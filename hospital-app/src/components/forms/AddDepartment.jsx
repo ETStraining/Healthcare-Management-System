@@ -2,12 +2,12 @@ import Input from "../ui/Input.jsx";
 import Textarea from "../ui/Textarea.jsx";
 import TagsInput from "../ui/TagsInput.jsx";
 import Button from "../ui/Button.jsx";
-import { useState } from "react";
-import {useMutation} from "@tanstack/react-query";
-import {addDepartment} from "../../firebase/departments.js";
+import {useState} from "react";
 import PropTypes from "prop-types";
+import {useCreateDepartment} from "../../hooks/useDepartments.js";
 
-const AddDepartment = ({refetch}) => {
+const AddDepartment = () => {
+    const {mutate, isPending} = useCreateDepartment();
     const initialFormData = {
         name: "",
         description: "",
@@ -19,17 +19,6 @@ const AddDepartment = ({refetch}) => {
     };
 
     const [formData, setFormData] = useState(initialFormData);
-
-    const {
-        mutate,
-        isError,
-        isPending,
-        isSuccess,
-        error
-    } = useMutation({
-        mutationFn: addDepartment,
-        mutationKey: "addDepartment",
-    })
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -52,7 +41,6 @@ const AddDepartment = ({refetch}) => {
             onSuccess: () => {
                 console.log("Department added inside handleSubmit");
                 setFormData(initialFormData);
-                refetch();
             },
             onError: (error) => {
                 console.error("Error inside handleSubmit: ", error);
