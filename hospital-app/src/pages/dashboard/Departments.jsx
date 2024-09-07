@@ -1,32 +1,23 @@
-import Button from "../../components/ui/Button.jsx";
+import {useState} from "react";
 import InnerHeader from "../../components/layout/InnerHeader.jsx";
+import Button from "../../components/ui/Button.jsx";
 import Dialog from "../../components/ui/Dialog.jsx";
 import AddDepartment from "../../components/forms/AddDepartment.jsx";
-import {useState} from "react";
-import {useQuery} from "@tanstack/react-query";
-import {getAllDepartments} from "../../firebase/departments.js";
 import THead from "../../components/table/THead.jsx";
+import {useDepartments} from "../../hooks/useDepartments.js";
 
 const Departments = () => {
     const headers = ["Name", "Email", "Location", "Services"]
     const [dialogOpen, setDialogOpen] = useState(false)
 
-    const {
-        isLoading,
-        data,
-        refetch
-    } = useQuery({
-        queryFn: getAllDepartments,
-        queryKey: ["allDepartments"]
-    })
-
-    console.log(data)
+    const {data, isLoading} = useDepartments();
+    
     return(
         <>
             {dialogOpen &&
                 <Dialog handleClose={() => setDialogOpen(false)}>
                     <Dialog.Title>Add Department</Dialog.Title>
-                    <AddDepartment refetch={refetch} />
+                    <AddDepartment refetch={() => {}} />
                 </Dialog>
             }
             <InnerHeader title={"Departments"} className="flex items-center justify-between">
@@ -45,7 +36,7 @@ const Departments = () => {
                         <THead headers={headers}/>
                         <tbody>
                         {
-                            data.map((row, idx) => (
+                            data.departments.map((row, idx) => (
                                 <tr key={idx}>
                                     <td className="font-medium">{row.name}</td>
                                     <td>{row.email}</td>
