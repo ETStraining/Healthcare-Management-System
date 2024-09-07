@@ -3,55 +3,27 @@ import InnerHeader from "../../components/layout/InnerHeader.jsx";
 import Dialog from "../../components/ui/Dialog.jsx";
 import {useState} from "react";
 import AddUser from "../../components/forms/AddUser.jsx";
-import {useQuery} from "@tanstack/react-query";
-import {getAllRoles} from "../../firebase/roles.js";
-import {getAllDepartments} from "../../firebase/departments.js";
-import {getAllUsers} from "../../firebase/users.js";
 import THead from "../../components/table/THead.jsx";
+import {useStaff} from "../../hooks/useStaff.js";
+import {useDepartments} from "../../hooks/useDepartments.js";
 
 
 const Users = () => {
     const [dialogOpen, setDialogOpen] = useState(false)
     const headers = ["Names", "Email", "Department", "Role"]
-    const {
-        data,
-        isLoading,
-        isSuccess,
-    } = useQuery({
-        queryKey: ["getRolesAndCategories"],
-        queryFn: async () => {
-            const roles = await getAllRoles();
-            const departments = await getAllDepartments();
-            const users = await getAllUsers();
+    const {data: users, isLoading, isSuccess} = useStaff();
+    const {data: departmentsData} = useDepartments();
 
-            const rolesMap = {};
-            roles.forEach(role => {
-                rolesMap[role.id] = role.name;
-            })
+    console.log(departmentsData)
 
-            const departmentsMap = {};
-            departments.forEach(department => {
-                departmentsMap[department.id] = department.name;
-            })
-
-
-            return {
-                roles: roles,
-                departments: departments,
-                users: users,
-                rolesMap: rolesMap,
-                departmentsMap: departmentsMap
-            }
-
-        }
-    })
+    console.log(users)
 
     return (
         <>
             {dialogOpen &&
                 <Dialog handleClose={() => setDialogOpen(false)}>
                     <Dialog.Title>Add Staff</Dialog.Title>
-                    <AddUser roles={data.roles} departments={data.departments} />
+                    <AddUser departments={departmentsData.departments} />
                 </Dialog>
             }
             <InnerHeader title={"Staff"} className="flex items-center justify-between">
@@ -65,16 +37,16 @@ const Users = () => {
                         Loading ...
                     </div>
                 }
-                {isSuccess && data && (
+                {isSuccess && users && (
                     <table>
                         <THead headers={headers} />
                         <tbody>
-                        {data.users.map((user, idx) => (
+                        {users.staff.map((user, idx) => (
                             <tr className="capitalize" key={idx}>
                                 <td className="font-medium">{`${user.firstName} ${user.lastName}`}</td>
                                 <td className="lowercase">{user.email}</td>
-                                <td>{data.departmentsMap[user.department]}</td>
-                                <td>{data.rolesMap[user.role]}</td>
+                                <td>{user.departmentId.name}</td>
+                                <td>{user.role}</td>
                             </tr>
                         ))}
                         </tbody>

@@ -1,12 +1,14 @@
 import Input from "../ui/Input.jsx";
 import Textarea from "../ui/Textarea.jsx";
-import {useMutation} from "@tanstack/react-query";
 import Select from "../ui/Select.jsx";
 import Button from "../ui/Button.jsx";
 import {useState} from "react";
-import {createUser} from "../../firebase/users.js";
+import PropTypes from "prop-types";
+import {useCreateStaff} from "../../hooks/useStaff.js";
 
-const AddUser = ({roles, departments}) => {
+const AddUser = ({departments}) => {
+
+    const roles = ["Admin", "Doctor", "Nurse", "Receptionist"]
 
     const initialFormData = {
         firstName: "",
@@ -15,7 +17,8 @@ const AddUser = ({roles, departments}) => {
         phone: "",
         description: "",
         role: "",
-        department: ""
+        departmentId: "",
+        password: "12345678"
     }
 
     const [formData, setFormData] = useState(initialFormData);
@@ -31,14 +34,14 @@ const AddUser = ({roles, departments}) => {
     const {
         mutate,
         isPending,
-        isSuccess
-    } = useMutation({
-        mutationKey: ["createUser"],
-        mutationFn: createUser
-    })
+        data
+    } = useCreateStaff()
+
+    console.log(data)
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        console.log(formData)
         mutate(formData, {
             onSuccess: () => {
                 console.log("User added ");
@@ -97,31 +100,37 @@ const AddUser = ({roles, departments}) => {
                         {
                             roles.map((role) => (
                                 <Select.Option
-                                    key={role.id}
-                                    value={role.id}
-                                >{role.name}</Select.Option>
+                                    key={role}
+                                    value={role}
+                                >{role}</Select.Option>
                             ))
                         }
                     </Select>
                     <Select
                         onChange={handleChange}
-                        name={"department"}
+                        name={"departmentId"}
                         value={formData.department}
                         label={"Department"} required>
                         {
                             departments.map((department) => (
                                 <Select.Option
-                                    key={department.id}
-                                    value={department.id}
+                                    key={department._id}
+                                    value={department._id}
                                 >{department.name}</Select.Option>
                             ))
                         }
                     </Select>
                 </div>
-                <Button onClick={() => {}}>Create User</Button>
+                <Button onClick={() => {}}>
+                    {isPending? 'Adding User':'Create User'}
+                </Button>
             </div>
         </form>
     )
+}
+
+AddUser.propTypes = {
+    departments: PropTypes.arrayOf(PropTypes.object)
 }
 
 
