@@ -6,8 +6,14 @@ export const createStaff = async (staffData) => {
     return data;
 }
 
-export const fetchStaff = async (filters = {}) => {
-    const { data } = await API.get('/staff/all', {params: filters});
+export const fetchStaff = async (filters = {}, page = 1, limit = 10) => {
+    const { data } = await API.get('/staff/all', {
+        params: {
+            ...filters,
+            page,
+            limit
+        }
+    });
     return data;
 };
 
