@@ -8,6 +8,8 @@ import Doctors from "./pages/dashboard/Doctors.jsx";
 import Patients from "./pages/dashboard/Patients.jsx";
 import Departments from "./pages/dashboard/Departments.jsx";
 import Users from "./pages/dashboard/Users.jsx";
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const router = createBrowserRouter([
     {
