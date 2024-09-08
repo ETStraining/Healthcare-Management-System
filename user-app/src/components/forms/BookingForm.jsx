@@ -3,17 +3,28 @@ import Select from "../ui/Select.jsx";
 import Textarea from "../ui/Textarea.jsx";
 import Button from "../ui/Button.jsx";
 import {useState} from "react";
+import {useCreateAppointment, useDepartments, useStaff} from "../../hooks/useApi.js";
+import {toast} from "react-toastify";
 
 
 const BookingForm = () => {
+
+    const [filters, setFilters] = useState({
+        role: "Doctor"
+    })
+
+    const {data: deps, isSuccess} = useDepartments();
+    const {data: docs, isSuccess: ready} = useStaff(filters);
+
+
 
     const initialFormData = {
         patientName: "",
         department: "",
         doctor: "",
-        patientEmail: "",
-        patientPhone: "",
-        date: "",
+        email: "",
+        phone: "",
+        visitDate: "",
         time: "",
         comment: ""
     }
@@ -26,12 +37,30 @@ const BookingForm = () => {
             ...prevData,
             [name]: value
         }));
+        if (name === "department") {
+            setFilters((prevFilters) => ({
+                ...prevFilters,
+                department: value
+            }));
+        }
     };
+
+    const {mutate, isPending} = useCreateAppointment();
 
 
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log(formData)
+        mutate(formData, {
+            onSuccess: () => {
+                toast.success("Appointment added")
+                setFormData(initialFormData);
+            },
+            onError: (error) => {
+                toast.error("An Error occurred")
+                console.error("Error: ", error);
+            },
+        })
     }
 
     return (
@@ -53,9 +82,12 @@ const BookingForm = () => {
                             label={"Departments"}
                             required
                         >
-                            <Select.Option value={"1"}>Department 1</Select.Option>
-                            <Select.Option value={"2"}>Department 2</Select.Option>
-                            <Select.Option value={"3"}>Department 3</Select.Option>
+                            {
+                                isSuccess &&
+                                (deps.departments.map((dep, idx) => (
+                                    <Select.Option value={dep._id} key={idx}>{dep.name}</Select.Option>
+                                )))
+                            }
                         </Select>
                         <Select
                             name="doctor"
@@ -63,14 +95,17 @@ const BookingForm = () => {
                             label={"Doctor"}
                             required
                         >
-                            <Select.Option value={"1"}>Doctor 1</Select.Option>
-                            <Select.Option value={"2"}>Doctor 2</Select.Option>
-                            <Select.Option value={"3"}>Doctor 3</Select.Option>
+                            {
+                                ready &&
+                                (docs.staff.map((doc, idx) => (
+                                    <Select.Option value={doc._id} key={idx}>{doc.firstName +" "+ doc.lastName}</Select.Option>
+                                )))
+                            }
                         </Select>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                         <Input
-                            name="patientEmail"
+                            name="email"
                             onChange={handleChange}
                             value={formData.patientEmail}
                             label={"Your email"}
@@ -78,7 +113,7 @@ const BookingForm = () => {
                             required
                         />
                         <Input
-                            name="patientPhone"
+                            name="phone"
                             onChange={handleChange}
                             value={formData.patientPhone}
                             label={"Your Phone"}
@@ -88,7 +123,7 @@ const BookingForm = () => {
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                         <Input
-                            name="date"
+                            name="visitDate"
                             onChange={handleChange}
                             type={"date"}
                             value={formData.date}
@@ -115,7 +150,9 @@ const BookingForm = () => {
                     />
 
                     <Button type="submit">
-                        Book an Appointment
+                        {
+                            isPending? "Booking...":"Book an Appointment"
+                        }
                     </Button>
                 </div>
             </form>
