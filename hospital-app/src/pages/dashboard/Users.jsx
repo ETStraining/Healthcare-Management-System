@@ -6,17 +6,28 @@ import AddUser from "../../components/forms/AddUser.jsx";
 import THead from "../../components/table/THead.jsx";
 import {useStaff} from "../../hooks/useStaff.js";
 import {useDepartments} from "../../hooks/useDepartments.js";
+import Pagination from "../../components/ui/Pagination.jsx";
+import Filter from "../../components/Filter.jsx";
 
 
 const Users = () => {
+    const [page, setPage] = useState(1);
+    const [limit, setLimit] = useState(10);
+    const [filters, setFilters] = useState({})
+    const [filterModalOpen, setFilterModalOpen] = useState(false);
     const [dialogOpen, setDialogOpen] = useState(false)
+
     const headers = ["Names", "Email", "Department", "Role"]
-    const {data: users, isLoading, isSuccess} = useStaff();
-    const {data: departmentsData} = useDepartments();
+    const {data: users, isLoading, isSuccess} = useStaff(filters, page, limit);
+    const {data: departmentsData, isSuccess:isDepartmentsSuccess} = useDepartments();
 
-    console.log(departmentsData)
+    const handleFilterChange = (newFilters) => {
+        setFilters(newFilters);
+        setPage(1);
+    };
+    
 
-    console.log(users)
+
 
     return (
         <>
@@ -38,20 +49,39 @@ const Users = () => {
                     </div>
                 }
                 {isSuccess && users && (
-                    <table>
-                        <THead headers={headers} />
-                        <tbody>
-                        {users.staff.map((user, idx) => (
-                            <tr className="capitalize" key={idx}>
-                                <td className="font-medium">{`${user.firstName} ${user.lastName}`}</td>
-                                <td className="lowercase">{user.email}</td>
-                                <td>{user.departmentId.name}</td>
-                                <td>{user.role}</td>
-                            </tr>
-                        ))}
-                        </tbody>
-                    </table>
+                    <>
+                        {isDepartmentsSuccess && (
+                            <Filter
+                                onFilterChange={handleFilterChange}
+                                filters={filters}
+                                departments={departmentsData.departments}
+                                filterModalOpen={filterModalOpen}
+                                setFilterModalOpen={setFilterModalOpen}
+                            />
+                        )}
+                        <table>
+                            <THead headers={headers} />
+                            <tbody>
+                            {users.staff.map((user, idx) => (
+                                <tr className="capitalize" key={idx}>
+                                    <td className="font-medium">{`${user.firstName} ${user.lastName}`}</td>
+                                    <td className="lowercase">{user.email}</td>
+                                    <td>{user.department.name}</td>
+                                    <td>{user.role}</td>
+                                </tr>
+                            ))}
+                            </tbody>
+                        </table>
+                    </>
                 )}
+                {
+                    users &&
+                    <Pagination
+                        page={users.page}
+                        totalPages={users.totalPages}
+                        onPageChange={setPage}
+                    />
+                }
             </div>
         </>
     )
