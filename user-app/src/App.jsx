@@ -6,6 +6,7 @@ import Booking from "./pages/Booking.jsx";
 import Contact from "./pages/Contact.jsx";
 import Departments from "./pages/Departments.jsx";
 import Doctors from "./pages/Doctors.jsx";
+import 'react-toastify/dist/ReactToastify.css';
 
 const router = createBrowserRouter([
     {
