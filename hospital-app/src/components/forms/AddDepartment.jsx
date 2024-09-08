@@ -3,7 +3,6 @@ import Textarea from "../ui/Textarea.jsx";
 import TagsInput from "../ui/TagsInput.jsx";
 import Button from "../ui/Button.jsx";
 import {useState} from "react";
-import PropTypes from "prop-types";
 import {useCreateDepartment} from "../../hooks/useDepartments.js";
 
 const AddDepartment = () => {
@@ -15,7 +14,7 @@ const AddDepartment = () => {
         email: "",
         services: [],
         location: "",
-        comment: "",
+        largeDescription: "",
     };
 
     const [formData, setFormData] = useState(initialFormData);
@@ -101,8 +100,8 @@ const AddDepartment = () => {
                     required
                 />
                 <Textarea
-                    name="comment"
-                    value={formData.comment}
+                    name="largeDescription"
+                    value={formData.largeDescription}
                     onChange={handleChange}
                     label="Comment"
                     placeholder="More description here:"
@@ -117,8 +116,5 @@ const AddDepartment = () => {
     );
 };
 
-AddDepartment.propTypes = {
-    refetch: PropTypes.func
-}
 
 export default AddDepartment;

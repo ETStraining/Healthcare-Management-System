@@ -5,13 +5,25 @@ import Dialog from "../../components/ui/Dialog.jsx";
 import AddDepartment from "../../components/forms/AddDepartment.jsx";
 import THead from "../../components/table/THead.jsx";
 import {useDepartments} from "../../hooks/useDepartments.js";
+import EditDepartment from "../../components/forms/EditDepartment.jsx";
 
 const Departments = () => {
     const headers = ["Name", "Email", "Location", "Services"]
     const [dialogOpen, setDialogOpen] = useState(false)
     const [oneDepDialog, setOneDepDialog] = useState(false);
+    const [selectedDep, setSelectedDep] = useState(null);
 
     const {data, isLoading} = useDepartments();
+
+    const handleRowClick = (row) => {
+        setOneDepDialog(true);
+        setSelectedDep(row)
+    }
+
+    const closeOneDepDialog = () => {
+        setOneDepDialog(false); // Close the department dialog
+    };
+
 
     return(
         <>
@@ -21,9 +33,9 @@ const Departments = () => {
                     <AddDepartment/>
                 </Dialog>
             }
-            {oneDepDialog &&
-                <Dialog handleClose={() => setOneDepDialog(false)}>
-
+            {oneDepDialog && selectedDep &&
+                <Dialog handleClose={closeOneDepDialog}>
+                    <EditDepartment department={selectedDep} handleClose={closeOneDepDialog} />
                 </Dialog>
             }
             <InnerHeader title={"Departments"} className="flex items-center justify-between">
@@ -46,7 +58,7 @@ const Departments = () => {
                                 <tr key={idx}>
                                     <td
                                         className="font-medium hover:underline cursor-pointer"
-                                        onClick={() => setOneDepDialog(true)}
+                                        onClick={() => handleRowClick(row)}
                                     >{row.name}</td>
                                     <td>{row.email}</td>
                                     <td>{row.location}</td>

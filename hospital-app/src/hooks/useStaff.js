@@ -1,12 +1,12 @@
 import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
 import {createStaff, fetchStaff, fetchStaffById} from "../api/staffAPI.js";
 
-export const useStaff = (filters = {}) => {
+export const useStaff = (filters = {}, page = 1, limit = 10) => {
     return useQuery({
-        queryKey: ["staff", filters],
-        queryFn: () => fetchStaff(filters)
-    })
-}
+        queryKey: ["staff", filters, page, limit],
+        queryFn: () => fetchStaff(filters, page, limit)
+    });
+};
 
 export const useCreateStaff = () => {
     const queryClient = useQueryClient();
