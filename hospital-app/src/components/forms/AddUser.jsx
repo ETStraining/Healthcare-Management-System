@@ -17,7 +17,7 @@ const AddUser = ({departments}) => {
         phone: "",
         description: "",
         role: "",
-        departmentId: "",
+        department: "",
         password: "12345678"
     }
 
@@ -108,7 +108,7 @@ const AddUser = ({departments}) => {
                     </Select>
                     <Select
                         onChange={handleChange}
-                        name={"departmentId"}
+                        name={"department"}
                         value={formData.department}
                         label={"Department"} required>
                         {
