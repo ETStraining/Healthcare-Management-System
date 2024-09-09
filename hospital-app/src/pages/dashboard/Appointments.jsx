@@ -3,6 +3,8 @@ import InnerHeader from "../../components/layout/InnerHeader.jsx";
 import {useAppointments} from "../../hooks/useAppointments.js";
 import Pagination from "../../components/ui/Pagination.jsx";
 import {useState} from "react";
+import Spinner from "../../components/Spinner.jsx";
+import Banner from "../../components/Banner.jsx";
 
 const headers = ['Patient Name', 'Email', 'Date', 'Visit time', 'Doctor']
 
@@ -28,15 +30,11 @@ const Appointments = () => {
     return(
         <>
             <InnerHeader title={"Appointments"} />
-            <div className="relative overflow-x-auto">
+            <div className="relative min-h-40 overflow-x-auto">
                 {
-                    isLoading &&
-                    <div className="flex w-full h-full items-center justify-center">
-                        Loading ...
-                    </div>
-                }
-                {
-                    data &&
+                    isLoading ? (
+                    <Spinner />
+                    ) : data && data.appointments.length > 0 ? (
                     <>
                         <table>
                             <THead headers={headers}/>
@@ -60,6 +58,9 @@ const Appointments = () => {
                             onPageChange={setPage}
                         />
                     </>
+                    ):(
+                        <Banner message={"No Appointments found!"} />
+                    )
                 }
             </div>
         </>

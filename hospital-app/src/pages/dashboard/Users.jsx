@@ -8,6 +8,8 @@ import {useStaff} from "../../hooks/useStaff.js";
 import {useDepartments} from "../../hooks/useDepartments.js";
 import Pagination from "../../components/ui/Pagination.jsx";
 import Filter from "../../components/Filter.jsx";
+import Spinner from "../../components/Spinner.jsx";
+import Banner from "../../components/Banner.jsx";
 
 
 const Users = () => {
@@ -25,7 +27,7 @@ const Users = () => {
         setFilters(newFilters);
         setPage(1);
     };
-    
+
 
 
 
@@ -41,14 +43,11 @@ const Users = () => {
                 <Button onClick={() => setDialogOpen(true)}>Add a Staff</Button>
             </InnerHeader>
 
-            <div className="relative overflow-x-auto">
+            <div className="relative min-h-40 overflow-x-auto">
                 {
-                    isLoading &&
-                    <div className="flex w-full h-full items-center justify-center">
-                        Loading ...
-                    </div>
-                }
-                {isSuccess && users && (
+                    isLoading ? (
+                    <Spinner />
+                    ) :  users && users.data.length > 0 ? (
                     <>
                         {isDepartmentsSuccess && (
                             <Filter
@@ -72,15 +71,15 @@ const Users = () => {
                             ))}
                             </tbody>
                         </table>
+                        <Pagination
+                            page={users.page}
+                            totalPages={users.totalPages}
+                            onPageChange={setPage}
+                        />
                     </>
-                )}
-                {
-                    users &&
-                    <Pagination
-                        page={users.page}
-                        totalPages={users.totalPages}
-                        onPageChange={setPage}
-                    />
+                ): (
+                    <Banner message={"No Staff members found"} />
+                    )
                 }
             </div>
         </>
