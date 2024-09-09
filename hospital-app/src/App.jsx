@@ -9,6 +9,8 @@ import Patients from "./pages/dashboard/Patients.jsx";
 import Departments from "./pages/dashboard/Departments.jsx";
 import Users from "./pages/dashboard/Users.jsx";
 import 'react-toastify/dist/ReactToastify.css';
+import ProtectedRoute from "./auth/ProtectedRoute.jsx";
+import {UserProvider} from "./context/UserContext.jsx";
 
 
 const router = createBrowserRouter([
@@ -19,7 +21,11 @@ const router = createBrowserRouter([
     },
     {
         path: "/dashboard",
-        element: <DashboardLayout />,
+        element: (
+            <ProtectedRoute>
+                <DashboardLayout />
+            </ProtectedRoute>
+        ),
         children: [
             {
                 path: "",
@@ -52,7 +58,9 @@ const router = createBrowserRouter([
 
 const App = () => {
     return(
-        <RouterProvider router={router} />
+        <UserProvider>
+            <RouterProvider router={router} />
+        </UserProvider>
     )
 }
 
