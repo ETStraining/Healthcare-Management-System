@@ -1,12 +1,14 @@
 import logo from "../../assets/img/capstone.png";
 import {Link, Outlet} from "react-router-dom";
 import Navigation from "../Navigation.jsx";
-import { FaBell as Bell } from "react-icons/fa";
+import {FaBell as Bell} from "react-icons/fa";
 import avatar from "../../assets/img/avatar.png";
 import {useState} from "react";
+import {useUser} from "../../context/UserContext.jsx";
 
 const DashboardLayout = () => {
     const [profileOpen, setProfileOpen] = useState(false)
+    const {logout, user} = useUser();
 
     return(
         <>
@@ -18,7 +20,14 @@ const DashboardLayout = () => {
                 <Navigation />
             </div>
             <div className="w-[calc(100vw-24px)] xl:w-[calc(100vw-256px)] float-right p-5">
-                <div className="w-full flex items-center justify-end">
+                <div className="w-full flex items-center justify-between px-4">
+                    <div className="flex items-center gap-5">
+                        <h1 className="font-bold text-dark-gray text-2xl">Welcome
+                            <span className="ml-2 text-dark-gray">{user.firstName}</span>
+                            <span className="ml-2 text-dark-gray hidden md:inline-block">{user.lastName}</span>
+                        </h1>
+                        <span className="bg-dc-blue/70 px-4 rounded-xl border-2 text-dark hidden md:inline-flex">{user.role}</span>
+                    </div>
                     <div className="flex items-center gap-2">
                         <div className="relative text-dark-gray">
                             <span className="text-[24px] lg:text-[30px]">
@@ -34,7 +43,7 @@ const DashboardLayout = () => {
                         {profileOpen &&
                             <div className="absolute font-medium text-dark flex flex-col top-16 right-6 bg-white shadow-lg p-4 rounded-md">
                                 <Link to={"/profile"} className="px-4 py-2">Profile</Link>
-                                <Link to={"/logout"} className="px-4 py-2">Logout</Link>
+                                <button onClick={logout}>Logout</button>
                             </div>
                         }
                     </div>
