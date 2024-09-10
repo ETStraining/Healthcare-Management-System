@@ -54,7 +54,7 @@ const Filter = ({ onFilterChange, filters, departments, filterModalOpen, setFilt
     };
 
     return (
-        <div className="relative w-full flex items-center justify-end mb-2">
+        <div className="relative flex items-center justify-end mb-2">
             <button
                 className="px-4 py-2 bg-gray-200 text-dark rounded-md hover:bg-gray-300 flex items-center"
                 onClick={() => setFilterModalOpen(true)}
