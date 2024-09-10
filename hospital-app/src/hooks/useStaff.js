@@ -1,5 +1,6 @@
 import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
-import {createStaff, fetchStaff, fetchStaffById} from "../api/staffAPI.js";
+import {createStaff, deleteStaff, fetchStaff, fetchStaffById} from "../api/staffAPI.js";
+import {deleteDepartment} from "../api/departmentAPI.js";
 
 export const useStaff = (filters = {}, page = 1, limit = 10) => {
     return useQuery({
@@ -24,4 +25,15 @@ export const useOneStaff = (staffId) => {
         queryKey: ["staff", staffId],
         queryFn: () => fetchStaffById(staffId)
     })
+}
+
+export const useDeleteStaff = () => {
+    const queryClient = useQueryClient();
+
+    return useMutation({
+        mutationFn: (staffId) => deleteStaff(staffId),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ["staff"] });
+        },
+    });
 }
