@@ -5,46 +5,56 @@ import {FaUsers as Users, FaWheelchair as Wheel} from "react-icons/fa6";
 import {MdOutlinePayment as Payment} from "react-icons/md";
 import {IoPeopleOutline as Dep} from "react-icons/io5";
 import PropTypes from "prop-types";
+import {useUser} from "../context/UserContext.jsx";
 
 const links = [
     {
         path: "/dashboard",
         label : "Dashboard",
-        Icon: Home
+        Icon: Home,
+        allowedRoles: ["Doctor", "Admin", "Nurse", "Receptionist"]
     },
     {
         path: "/dashboard/appointments",
         label : "Appointments",
-        Icon: Steto
+        Icon: Steto,
+        allowedRoles: ["Doctor", "Admin"]
     },
     {
         path: "/dashboard/staff",
         label : "Staff",
-        Icon: Users
+        Icon: Users,
+        allowedRoles: ["Admin"]
     },
     {
         path: "/dashboard/patients",
         label : "Patients",
-        Icon: Wheel
+        Icon: Wheel,
+        allowedRoles: ["Doctor", "Admin", "Nurse", "Receptionist"]
     },
     {
         path: "/dashboard/departments",
         label : "Departments",
-        Icon: Dep
+        Icon: Dep,
+        allowedRoles: ["Admin"]
     },
     {
         path: "/dashboard/payments",
         label : "Payments",
-        Icon: Payment
+        Icon: Payment,
+        allowedRoles: ["Admin"]
     }
 ]
 
 const Navigation = () => {
+    const { user } = useUser();
+
+    const filteredLinks = links.filter(link => link.allowedRoles.includes(user.role));
     return (
         <nav className={"mt-10"}>
             <h4 className="text-muted hidden xl:block">MEDICINE</h4>
             <div className="mt-4 flex items-center xl:items-start flex-col space-y-4">
-                {links.map((link, idx) => (
+                {filteredLinks.map((link, idx) => (
                     <NavItem
                         key={idx}
                         to={link.path}
