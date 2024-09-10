@@ -8,14 +8,17 @@ import {useDepartments} from "../../hooks/useDepartments.js";
 import EditDepartment from "../../components/forms/EditDepartment.jsx";
 import Spinner from "../../components/Spinner.jsx";
 import Banner from "../../components/Banner.jsx";
+import Pagination from "../../components/ui/Pagination.jsx";
 
 const Departments = () => {
     const headers = ["Name", "Email", "Location", "Services"]
+    const [page, setPage] = useState(1);
+    const [limit, setLimit] = useState(10);
     const [dialogOpen, setDialogOpen] = useState(false)
     const [oneDepDialog, setOneDepDialog] = useState(false);
     const [selectedDep, setSelectedDep] = useState(null);
 
-    const {data, isLoading} = useDepartments();
+    const {data, isLoading} = useDepartments(page, limit);
 
     const handleRowClick = (row) => {
         setOneDepDialog(true);
@@ -25,6 +28,8 @@ const Departments = () => {
     const closeOneDepDialog = () => {
         setOneDepDialog(false); // Close the department dialog
     };
+
+    console.log(data)
 
 
     return(
@@ -48,37 +53,44 @@ const Departments = () => {
                     isLoading ? (
                         <Spinner />
                         ) : data && data.departments.length > 0 ? (
-                        <table>
-                            <THead headers={headers} />
-                            <tbody>
-                            {data.departments.map((row, idx) => (
-                                <tr key={idx}>
-                                    <td
-                                        className="font-medium hover:underline cursor-pointer"
-                                        onClick={() => handleRowClick(row)}
-                                    >
-                                        {row.name}
-                                    </td>
-                                    <td>{row.email}</td>
-                                    <td>{row.location}</td>
-                                    <td>
-                                        <ul className="flex items-center gap-3">
-                                            {row.services.map((service, serviceIdx) => (
-                                                <li
-                                                    key={serviceIdx}
-                                                    className="px-4 py-2 bg-dc-blue/30 rounded-md"
-                                                >
-                                                    {service}
-                                                </li>
-                                            ))}
-                                        </ul>
-                                    </td>
-                                </tr>
-                            ))}
-                            </tbody>
-                        </table>
+                        <>
+                            <table>
+                                <THead headers={headers}/>
+                                <tbody>
+                                {data.departments.map((row, idx) => (
+                                    <tr key={idx}>
+                                        <td
+                                            className="font-medium hover:underline cursor-pointer"
+                                            onClick={() => handleRowClick(row)}
+                                        >
+                                            {row.name}
+                                        </td>
+                                        <td>{row.email}</td>
+                                        <td>{row.location}</td>
+                                        <td>
+                                            <ul className="flex items-center gap-3">
+                                                {row.services.map((service, serviceIdx) => (
+                                                    <li
+                                                        key={serviceIdx}
+                                                        className="px-4 py-2 bg-dc-blue/30 rounded-md"
+                                                    >
+                                                        {service}
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                ))}
+                                </tbody>
+                            </table>
+                            <Pagination
+                                page={data.page}
+                                totalPages={data.totalPages}
+                                onPageChange={setPage}
+                            />
+                        </>
                     ) : (
-                        <Banner message={"No departments found in the database!"} />
+                        <Banner message={"No departments found in the database!"}/>
                     )
                 }
             </div>

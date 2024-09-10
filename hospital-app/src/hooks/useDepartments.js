@@ -9,10 +9,10 @@ import {
     fetchDepartments,
     updateDepartment} from "../api/departmentAPI.js";
 
-export const useDepartments = () => {
+export const useDepartments = (page = 1, limit = 10) => {
     return useQuery({
-        queryKey: ["departments"],
-        queryFn: fetchDepartments
+        queryKey: ["departments", page, limit],
+        queryFn: () => fetchDepartments(page, limit)
     })
 }
 

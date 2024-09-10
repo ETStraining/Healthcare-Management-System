@@ -21,3 +21,8 @@ export const fetchStaffById = async (staffId) => {
     const {data} = await API.get(`/staff/single/${staffId}`);
     return data;
 }
+
+export const deleteStaff = async (staffId) => {
+    const {data} = await API.delete(`/staff/${staffId}`);
+    return data;
+}

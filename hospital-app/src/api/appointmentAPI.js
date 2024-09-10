@@ -10,3 +10,14 @@ export  const fetchAppointments = async (filters = {}, page = 1, limit = 10) => 
     });
     return data;
 }
+
+
+export const approveAppointment = async (appointmentId, comment) => {
+    const {data} = await API.post(`/appointments/${appointmentId}/approve`, comment);
+    return data;
+}
+
+export const rejectAppointment = async (appointmentId, comment) => {
+    const {data} = await API.post(`/appointments/${appointmentId}/reject`, comment);
+    return data;
+}

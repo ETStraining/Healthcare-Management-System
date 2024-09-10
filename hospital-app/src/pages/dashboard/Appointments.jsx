@@ -5,8 +5,10 @@ import Pagination from "../../components/ui/Pagination.jsx";
 import {useState} from "react";
 import Spinner from "../../components/Spinner.jsx";
 import Banner from "../../components/Banner.jsx";
+import Approve from "../../components/actions/Approve.jsx";
+import Reject from "../../components/actions/Reject.jsx";
 
-const headers = ['Patient Name', 'Email', 'Date', 'Visit time', 'Doctor']
+const headers = ['Patient Name', 'Email', 'Date', 'Visit time', 'Doctor', 'Status', 'Action']
 
 
 
@@ -27,6 +29,19 @@ const Appointments = () => {
         return  `${year}-${month}-${day}`;
     }
 
+    const styleStatus = (status) => {
+        switch (status) {
+            case 'PENDING':
+                return 'bg-yellow-200';
+            case 'ACCEPTED':
+                return 'bg-green-200';
+            case 'REJECTED':
+                return 'bg-red-200';
+            default:
+                return 'bg-gray-200';
+        }
+    }
+
     return(
         <>
             <InnerHeader title={"Appointments"} />
@@ -42,11 +57,20 @@ const Appointments = () => {
                             {
                                 data.appointments.map((row, idx) => (
                                     <tr className="border-b" key={idx}>
-                                        <td className="font-medium">{row.patientName}</td>
+                                        <td className="font-medium hover:underline cursor-pointer">{row.patientName}</td>
                                         <td>{row.email}</td>
                                         <td>{formatDate(row.visitDate)}</td>
                                         <td>{row.time}</td>
                                         <td>{row.doctor.firstName + " " + row.doctor.lastName}</td>
+                                        <td>
+                                            <span className={`px-4 py-2 rounded-lg font-bold ${styleStatus(row.status)}`}>{row.status}</span>
+                                        </td>
+                                        <td>
+                                            <div className="flex items-center gap-4">
+                                                <Approve appointmentId={row._id} />
+                                                <Reject appointmentId={row._id} />
+                                            </div>
+                                        </td>
                                     </tr>
                                 ))
                             }
