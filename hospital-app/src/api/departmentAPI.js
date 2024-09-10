@@ -1,7 +1,12 @@
 import API from "./axios.js";
 
-export const fetchDepartments = async () => {
-    const { data } = await API.get("/departments");
+export const fetchDepartments = async (page = 1, limit = 10) => {
+    const { data } = await API.get("/departments", {
+        params: {
+            page,
+            limit
+        }
+    });
     return data;
 }
 
