@@ -4,13 +4,13 @@ import NotFound from "./pages/NotFound.jsx";
 import DashboardLayout from "./components/layout/DashboardLayout.jsx";
 import Dashboard from "./pages/dashboard/index.jsx";
 import Appointments from "./pages/dashboard/Appointments.jsx";
-import Doctors from "./pages/dashboard/Doctors.jsx";
 import Patients from "./pages/dashboard/Patients.jsx";
 import Departments from "./pages/dashboard/Departments.jsx";
 import Users from "./pages/dashboard/Users.jsx";
 import 'react-toastify/dist/ReactToastify.css';
 import ProtectedRoute from "./auth/ProtectedRoute.jsx";
 import {UserProvider} from "./context/UserContext.jsx";
+import NotAuthorized from "./pages/NotAuthorized.jsx";
 
 
 const router = createBrowserRouter([
@@ -20,9 +20,13 @@ const router = createBrowserRouter([
         errorElement: <NotFound />,
     },
     {
+        path: "/not-authorized",
+        element: <NotAuthorized />
+    },
+    {
         path: "/dashboard",
         element: (
-            <ProtectedRoute>
+            <ProtectedRoute allowedRoles={["Doctor", "Admin", "Nurse", "Receptionist"]}>
                 <DashboardLayout />
             </ProtectedRoute>
         ),
@@ -33,15 +37,19 @@ const router = createBrowserRouter([
             },
             {
                 path: "appointments",
-                element: <Appointments />
-            },
-            {
-                path: "doctors",
-                element: <Doctors />
+                element: (
+                    <ProtectedRoute allowedRoles={["Doctor", "Admin"]}>
+                        <Appointments />
+                    </ProtectedRoute>
+                )
             },
             {
                 path: "staff",
-                element: <Users />
+                element: (
+                    <ProtectedRoute allowedRoles={["Admin"]}>
+                        <Users />
+                    </ProtectedRoute>
+                )
             },
             {
                 path: "patients",
@@ -49,7 +57,11 @@ const router = createBrowserRouter([
             },
             {
                 path: "departments",
-                element: <Departments />
+                element: (
+                    <ProtectedRoute allowedRoles={["Admin"]}>
+                        <Departments />
+                    </ProtectedRoute>
+                )
             }
         ]
     }
