@@ -1,9 +1,10 @@
-import { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useState } from "react";
 import PropTypes from "prop-types";
+import {cn} from "../../utils/utils.js";
 
 const SelectContext = createContext(undefined);
 
-const Select = ({ children, label, className, onChange, required, name }) => {
+const Select = React.forwardRef(({ label, className, onChange, required, name, ...props }, ref) => {
     const [activeOption, setActiveOption] = useState(null);
 
     const handleChange = (e) => {
@@ -16,20 +17,22 @@ const Select = ({ children, label, className, onChange, required, name }) => {
                 <span className="text-dark font-medium">{label}</span>
                 {required && <span className="ms-1 text-red-400 font-medium">*</span>}
                 <select
+                    ref={ref}
                     name={name}
                     onChange={handleChange}
                     required={required}
-                    className={`mt-1 py-[0.375rem] px-3 w-full outline-none border border-light-gray rounded-[0.375rem] text-dark text-[0.9375rem] font-medium transition-all focus:border-dc-blue focus:ring-4 focus:ring-dc-blue/30 ${className}`}
-                >
-                    {children}
-                </select>
+                    {...props}
+                    className={cn('mt-1 py-[0.375rem] px-3 w-full outline-none border border-light-gray rounded-[0.375rem] text-dark text-[0.9375rem] font-medium transition-all focus:border-dc-blue focus:ring-4 focus:ring-dc-blue/30', className)}
+                />
             </label>
         </SelectContext.Provider>
     );
-};
+});
+
+Select.displayName = "CompoundSelect"
 
 const Option = ({ value, children }) => {
-    const { activeOption, setActiveOption } = useSelectContext();
+    useSelectContext();
     return (
         <option value={value}>
             {children}
@@ -48,7 +51,6 @@ const useSelectContext = () => {
 };
 
 Select.propTypes = {
-    children: PropTypes.node,
     className: PropTypes.string,
     onChange: PropTypes.func.isRequired,
     label: PropTypes.string.isRequired,
